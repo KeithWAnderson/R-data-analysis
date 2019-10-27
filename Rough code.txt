@@ -1,75 +1,23 @@
-##A radioactive object emits particles according##
-##to a Poisson process at an average rate of 7.5## 
-##particles per second. We observe the object for## 
-##a total of 5 seconds.##
-lambda = 7.5*5
+MorningSection.Times <- c(39,35,39,39,40,37,41,39,42,40,37,
+35,38,36,40,35,38,36,39,35,38,35,39,38,41,39,38,40,38,41,41,
+37,34,41,37,41,35,39,36,41)
 
-#(A) no more than 25 particles, so P(X<25)#
-q = 25
-p = ppois(q, lambda, lower.tail = TRUE, log.p = FALSE)
-p
+EveningSection.Times <- c(35,47,29,34,26,34,38,45,44,49,37,
+37,37,37,40,26,29,30,23,38,32,36,45,39,31,42,41,35,34,43,
+31,30,37,36,33)
 
-#(B) exactly 30 particles, so P(X<30) - P(X<29)#
-q1 = 30
-q2 = 29
-p1 = ppois(q1, lambda, lower.tail = TRUE, log.p = FALSE)
-p2 = ppois(q2, lambda, lower.tail = TRUE, log.p = FALSE)
-p1-p2
+mean(MorningSection.Times) 
+sd(MorningSection.Times)
+mean(EveningSection.Times) 
+sd(EveningSection.Times) 
 
-#(C) at least 31 particles , but no more than 34 particles,# 
-#so P(X<34) - P(X<30)#
-q1 = 34
-q2 = 30
-p1 = ppois(q1, lambda, lower.tail = TRUE, log.p = FALSE)
-p2 = ppois(q2, lambda, lower.tail = TRUE, log.p = FALSE)
-p1-p2
-
-#==========================================================#
-
-##A manufacturer of ceramic blades estimates that 1.25%## 
-##of all blades produced are too brittle to use. Suppose## 
-##we take a random sample of 400 blades and test them for## 
-##brittleness.##
-size = 400
-prob = 0.0125
-
-#(A) at least 4 blades, so P(X>3)#  
-q = 3
-p = pbinom(q, size, prob, lower.tail = FALSE, log.p = FALSE)
-p
-
-#(B) approximate probability that at least 4 blades,# 
-#so Bin~N(m,sd) for P(X>3)#
-q = 3
-mean = size*prob
-sd = sqrt(size*prob*(1-prob))
-p = pnorm(q, mean , sd , lower.tail = FALSE, log.p = FALSE)
-p
-
-#=========================================================#
-
-##The fracture toughness (in distributed with a mean of## 
-##28.3 and a standard deviation of 0.77. We select one sample##
-##of this alloy at random and measure its fracture toughness.##
-mean = 28.3
-sd = 0.77
-
-#(A) toughness will be between 27.8 and 30.7# 
-q1 = 30.7
-q2 = 27.7
-p1 = pnorm(q1, mean , sd , lower.tail = TRUE, log.p = FALSE)
-p2 = pnorm(q2, mean , sd , lower.tail = TRUE, log.p = FALSE)
-p1-p2
-
-#(B) toughness will be at least 29.5#
-q = 29.5 
-p = pnorm(q, mean , sd , lower.tail = FALSE, log.p = FALSE)
-p
-
-#(C) toughness is at least 29, but no more than 30.5# 
-q1 = 30.5
-q2 = 28.9
-p1 = pnorm(q1, mean , sd , lower.tail = TRUE, log.p = FALSE)
-p2 = pnorm(q2, mean , sd , lower.tail = TRUE, log.p = FALSE)
-p1-p2
+boxplot(MorningSection.Times, EveningSection.Times,
+main = "Sections boxplots for comparision of Commuting",
+names = c("Morning", "Evening"),
+ylab="Commuting Time in Minutes",
+xlab="University Sections",
+col = c("orange","blue"),
+border = "brown",
+notch = TRUE
+)
 
